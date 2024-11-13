@@ -3,239 +3,588 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiko Aditama | Developer & Analyst</title>
-    <!-- Styles -->
+    <title>Fiko Aditama | Creative Developer</title>
+    
+    <!-- Core Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
     
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <!-- Custom Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://unpkg.com/@barba/core"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #0E1016;
+            --secondary: #1E2130;
+            --accent: #64FFDA;
+            --text: #E2E8F0;
+        }
+        
+        body {
+            font-family: 'Satoshi', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            cursor: none; /* Hide default cursor */
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Magnetic Buttons */
+        .magnetic-button {
+            position: relative;
+            display: inline-block;
+            padding: 12px 24px;
+            border: 2px solid var(--accent);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        /* 3D Card Effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+
+        .card-3d-content {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Smooth Scroll Snapping */
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        .scroll-section {
+            scroll-snap-align: start;
+            height: 100vh;
+        }
+
+        /* Text Gradient Animation */
+        .gradient-text {
+            background: linear-gradient(-45deg, #64FFDA, #FF3366, #FFD700, #64FFDA);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #ff3366;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+    </style>
 </head>
-<body class="bg-[#0A192F] text-gray-300 font-['Poppins']">
-    <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 bg-[#0A192F] z-50 flex items-center justify-center">
-        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+<body class="overflow-x-hidden">
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-primary">
+        <div class="text-4xl font-bold">
+            <span class="loading-text gradient-text">Loading Experience...</span>
+        </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-40 transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 w-full z-40 mix-blend-difference">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <a href="#" class="text-2xl font-bold text-blue-500">
-                    <span class="group transition-all duration-300 ease-in-out">
-                        &lt;<span class="group-hover:text-white">FA</span>/&gt;
-                    </span>
-                </a>
-                
-                <!-- Desktop Menu -->
+                <a href="#" class="text-2xl font-bold magnetic-button">FA</a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#work" class="magnetic-button">Work</a>
+                    <a href="#about" class="magnetic-button">About</a>
+                    <a href="#contact" class="magnetic-button">Contact</a>
                 </div>
-
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-300 hover:text-white" id="mobile-menu-button">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-4 py-2 bg-[#112240] space-y-2">
-                <a href="#about" class="block py-2 hover:text-blue-500">About</a>
-                <a href="#experience" class="block py-2 hover:text-blue-500">Experience</a>
-                <a href="#projects" class="block py-2 hover:text-blue-500">Projects</a>
-                <a href="#contact" class="block py-2 hover:text-blue-500">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center pt-20" id="hero">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-sm text-blue-500 mb-4 opacity-0 transform translate-y-10" data-animation="fadeUp">
-                    Hi, my name is
+    <!-- Main Content -->
+    <div class="scroll-container">
+        <!-- Hero Section -->
+        <section class="scroll-section relative h-screen flex items-center justify-center" id="hero">
+            <div id="vanta-background" class="absolute inset-0"></div>
+            <div class="relative z-10 text-center">
+                <h1 class="text-7xl md:text-9xl font-bold mb-6 glitch" data-text="Fiko Aditama">
+                    Fiko Aditama
                 </h1>
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-200 mb-4 opacity-0 transform translate-y-10" data-animation="fadeUp">
-                    Fiko Aditama.
-                </h2>
-                <h3 class="text-3xl md:text-6xl font-bold text-gray-400 mb-8 opacity-0 transform translate-y-10" data-animation="fadeUp">
-                    I build things for the web.
-                </h3>
-                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto opacity-0 transform translate-y-10" data-animation="fadeUp">
-                    I'm a software developer specializing in Odoo development and data analysis. 
-                    Currently, I'm focused on building accessible, human-centered products.
-                </p>
-                <div class="opacity-0 transform translate-y-10" data-animation="fadeUp">
-                    <a href="#projects" 
-                       class="inline-block px-8 py-4 border-2 border-blue-500 text-blue-500 rounded-lg
-                              hover:bg-blue-500 hover:text-white transition-all duration-300">
-                        Check out my work!
-                    </a>
-                </div>
+                <p class="text-xl md:text-2xl text-gray-400 mb-8" id="typed-text"></p>
+                <a href="#work" class="magnetic-button text-lg">
+                    Explore My Work
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="numbered-heading" data-aos="fade-right">About Me</h2>
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div data-aos="fade-right">
-                        <p class="mb-4">
-                            Hello! My name is Fiko and I enjoy creating things that live on the internet. 
-                            My interest in software development started in 2018 when I decided to try customizing 
-                            Odoo modules — turns out hacking together custom modules taught me a lot about Python and web development!
-                        </p>
-                        <p class="mb-4">
-                            Fast-forward to today, and I've had the privilege of working at various companies, 
-                            leading development teams, and improving business processes through technology.
-                        </p>
-                        <p class="mb-8">
-                            Here are a few technologies I've been working with recently:
-                        </p>
-                        <ul class="grid grid-cols-2 gap-2 text-sm">
-                            <li class="flex items-center">
-                                <i class="fas fa-caret-right text-blue-500 mr-2"></i>
-                                Python (Odoo)
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-caret-right text-blue-500 mr-2"></i>
-                                JavaScript
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-caret-right text-blue-500 mr-2"></i>
-                                Docker
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-caret-right text-blue-500 mr-2"></i>
-                                SQL
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="relative group" data-aos="fade-left">
-                        <div class="relative w-64 h-64 mx-auto">
-                            <img src="assets/images/profile.jpg" 
-                                 alt="Fiko Aditama" 
-                                 class="relative z-10 rounded-lg grayscale hover:grayscale-0 transition-all duration-300">
-                            <div class="absolute inset-0 border-2 border-blue-500 rounded-lg transform translate-x-5 translate-y-5
-                                        group-hover:translate-x-4 group-hover:translate-y-4 transition-all duration-300"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="py-20 bg-[#112240]">
-        <div class="container mx-auto px-6">
-            <h2 class="numbered-heading" data-aos="fade-right">Where I've Worked</h2>
-            <div class="max-w-4xl mx-auto mt-12">
-                <!-- Vertical Timeline -->
-                <div class="relative">
-                    <!-- Timeline Line -->
-                    <div class="absolute left-0 w-0.5 h-full bg-blue-500"></div>
-
-                    <!-- Timeline Items -->
-                    <div class="ml-6 space-y-12">
-                        <!-- Experience Item -->
-                        <div class="relative" data-aos="fade-left">
-                            <div class="absolute -left-9 mt-2 w-4 h-4 rounded-full bg-blue-500"></div>
-                            <div class="mb-2">
-                                <h3 class="text-xl font-semibold text-gray-200">Senior Odoo Developer</h3>
-                                <p class="text-blue-500">Company Name • 2022 - Present</p>
+        <!-- Work Section -->
+        <section class="scroll-section relative min-h-screen py-20" id="work">
+            <div class="container mx-auto px-6">
+                <h2 class="text-5xl md:text-6xl font-bold mb-16 gradient-text">Selected Works</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Project Card -->
+                    <div class="card-3d group">
+                        <div class="card-3d-content bg-secondary rounded-xl overflow-hidden">
+                            <div class="relative overflow-hidden">
+                                <img src="project1.jpg" alt="Project" class="w-full transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent"></div>
                             </div>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-start">
-                                    <i class="fas fa-caret-right text-blue-500 mt-1.5 mr-2"></i>
-                                    <span>Led development of custom Odoo modules that improved system efficiency by 40%</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-caret-right text-blue-500 mt-1.5 mr-2"></i>
-                                    <span>Managed a team of 5 developers and coordinated with stakeholders</span>
-                                </li>
-                            </ul>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">Odoo ERP Suite</h3>
+                                <p class="text-gray-400 mb-4">Custom modules that revolutionized business processes</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent">Python</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent">PostgreSQL</span>
+                                </div>
+                            </div>
                         </div>
-
-                        <!-- Add more experience items following the same pattern -->
                     </div>
+                    <!-- More project cards -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="numbered-heading" data-aos="fade-right">Some Things I've Built</h2>
-            <div class="grid md:grid-cols-2 gap-8 mt-12">
-                <!-- Project Card -->
-                <div class="group relative bg-[#112240] rounded-lg overflow-hidden" data-aos="fade-up">
-                    <div class="relative">
-                        <img src="assets/images/projects/project1.jpg" alt="Project" class="w-full">
-                        <div class="absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-gray-200">Featured Project</h3>
-                        <p class="text-gray-400 mb-4">
-                            A comprehensive Odoo module suite that streamlines business operations.
+        <!-- About Section -->
+        <section class="scroll-section relative min-h-screen py-20 bg-secondary" id="about">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-5xl md:text-6xl font-bold mb-16 gradient-text">About Me</h2>
+                    <div class="prose prose-lg prose-invert">
+                        <p class="text-xl leading-relaxed mb-6">
+                            I'm a creative developer specializing in building exceptional digital experiences. 
+                            With expertise in Odoo development and data analysis, I bring a unique blend of 
+                            technical skill and creative problem-solving to every project.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-[#233554] rounded-full text-sm">Python</span>
-                            <span class="px-3 py-1 bg-[#233554] rounded-full text-sm">Odoo</span>
-                            <span class="px-3 py-1 bg-[#233554] rounded-full text-sm">PostgreSQL</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
-                                <i class="fab fa-github text-xl"></i>
-                            </a>
-                            <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
-                                <i class="fas fa-external-link-alt text-xl"></i>
-                            </a>
+                        <!-- Skill Circles -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+                            <div class="skill-circle" data-percentage="95">
+                                <svg class="w-32 h-32">
+                                    <circle class="progress-ring__circle" stroke="white" stroke-width="4" fill="transparent" r="58" cx="60" cy="60"/>
+                                </svg>
+                                <span class="absolute text-2xl font-bold">95%</span>
+                                <p class="mt-4 text-center">Python</p>
+                            </div>
+                            <!-- More skill circles -->
                         </div>
                     </div>
                 </div>
-                <!-- Add more project cards -->
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-[#112240]">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4" data-aos="fade-up">Get In Touch</h2>
-            <p class="max-w-md mx-auto mb-8 text-gray-400" data-aos="fade-up" data-aos-delay="100">
-                Whether you have a question or just want to say hi, I'll try my best to get back to you!
-            </p>
-            <a href="mailto:your.email@example.com" 
-               class="inline-block px-8 py-4 border-2 border-blue-500 text-blue-500 rounded-lg
-                      hover:bg-blue-500 hover:text-white transition-all duration-300"
-               data-aos="fade-up" data-aos-delay="200">
-                Say Hello
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-6 text-center text-gray-400">
-        <p>Designed & Built by Fiko Aditama</p>
-    </footer>
+        <!-- Contact Section -->
+        <section class="scroll-section relative min-h-screen py-20" id="contact">
+            <div class="container mx-auto px-6">
+                <h2 class="text-5xl md:text-6xl font-bold mb-16 gradient-text">Let's Connect</h2>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <p class="text-xl">Have a project in mind? Let's create something amazing together.</p>
+                        <div class="flex flex-col space-y-4">
+                            <a href="mailto:email@example.com" class="magnetic-button">
+                                email@example.com
+                            </a>
+                            <a href="https://linkedin.com/in/username" class="magnetic-button">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    <form class="space-y-6">
+                        <div class="relative">
+                            <input type="text" placeholder="Your Name" 
+                                   class="w-full bg-transparent border-b border-accent py-2 focus:outline-none">
+                        </div>
+                        <div class="relative">
+                            <input type="email" placeholder="Your Email" 
+                                   class="w-full bg-transparent border-b border-accent py-2 focus:outline-none">
+                        </div>
+                        <div class="relative">
+                            <textarea placeholder="Your Message" rows="4" 
+                                      class="w-full bg-transparent border-b border-accent py-2 focus:outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="magnetic-button w-full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Scripts -->
-    <script src="js/main.js"></script>
-    <script src="js/animations.js"></script>
+    <script>
+        // Initialize VANTA.NET Background
+        VANTA.NET({
+            el: "#vanta-background",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x64FFDA,
+            backgroundColor: 0x0E1016,
+            points: 10.00,
+            maxDistance: 25.00,
+            spacing: 17.00
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX - 10,
+                y: e.clientY - 10,
+                duration: 0.2
+            });
+            gsap.to(cursorFollower, {
+                x: e.clientX - 4,
+                y: e.clientY - 4,
+                duration: 0.8
+            });
+        });
+
+        // Magnetic Buttons
+        document.querySelectorAll('.magnetic-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(button, {
+                    duration: 0.3,
+                    x: x * 0.2,
+                    y: y * 0.2,
+                    ease: "power2.out"
+                });
+            });
+
+            button.addEventListener('mouseleave', () => {
+                gsap.to(button, {
+                    duration: 0.3,
+                    x: 0,
+                    y: 0,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Loading Screen
+        window.addEventListener('load', () => {
+            gsap.to('#loading-screen', {
+                duration: 1,
+                opacity: 0,
+                delay: 1,
+                onComplete: () => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }
+            });
+        });
+
+        // Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width - 0.5) * 20;
+                const yPercent = (y / rect.height - 0.5) * 20;
+                
+                gsap.to(card.querySelector('.card-3d-content'), {
+                    duration: 0.5,
+                    rotationY: xPercent,
+                    rotationX: -yPercent,
+                    ease: "power1.out",
+                    transformPerspective: 900
+                });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card.querySelector('.card-3d-content'), {
+                    duration: 0.5,
+                    rotationY: 0,
+                    rotationX: 0,
+                    ease: "power1.out"
+                });
+            });
+        });
+
+        // Skill Circles Animation
+        function createSkillCircle(element) {
+            const circle = element.querySelector('circle');
+            const radius = circle.r.baseVal.value;
+            const circumference = radius * 2 * Math.PI;
+            const percentage = element.dataset.percentage;
+
+            circle.style.strokeDasharray = `${circumference} ${circumference}`;
+            circle.style.strokeDashoffset = circumference;
+
+            gsap.to(circle, {
+                strokeDashoffset: circumference - (percentage / 100) * circumference,
+                duration: 2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 80%"
+                }
+            });
+        }
+
+        document.querySelectorAll('.skill-circle').forEach(createSkillCircle);
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: target,
+                    ease: "power2.inOut"
+                });
+            });
+        });
+
+        // Text Split Animation
+        const headings = document.querySelectorAll('h1, h2');
+        headings.forEach(heading => {
+            const text = heading.textContent;
+            heading.textContent = '';
+            [...text].forEach((char, i) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.opacity = '0';
+                span.style.transform = 'translateY(50px)';
+                heading.appendChild(span);
+
+                gsap.to(span, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: i * 0.05,
+                    scrollTrigger: {
+                        trigger: heading,
+                        start: "top 80%"
+                    }
+                });
+            });
+        });
+
+        // Project Cards Hover Effect
+        document.querySelectorAll('.card-3d').forEach(card => {
+            const content = card.querySelector('.card-3d-content');
+            
+            card.addEventListener('mouseenter', () => {
+                gsap.to(content, {
+                    scale: 1.05,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(cursor, {
+                    scale: 2,
+                    duration: 0.3
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(content, {
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(cursor, {
+                    scale: 1,
+                    duration: 0.3
+                });
+            });
+        });
+
+        // Form Animations
+        const formInputs = document.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                gsap.to(input, {
+                    borderColor: '#64FFDA',
+                    duration: 0.3
+                });
+            });
+
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    gsap.to(input, {
+                        borderColor: 'rgba(255,255,255,0.2)',
+                        duration: 0.3
+                    });
+                }
+            });
+        });
+
+        // Parallax Scrolling
+        gsap.utils.toArray('[data-speed]').forEach(element => {
+            gsap.to(element, {
+                y: (i, target) => {
+                    return (ScrollTrigger.maxScroll(window) - ScrollTrigger.maxScroll(window) * target.dataset.speed);
+                },
+                ease: "none",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top bottom",
+                    end: "max",
+                    invalidateOnRefresh: true,
+                    scrub: true
+                }
+            });
+        });
+
+        // Dynamic Background Color
+        let scrollProgress = 0;
+        window.addEventListener('scroll', () => {
+            scrollProgress = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight));
+            
+            const hue = scrollProgress * 360;
+            document.body.style.backgroundColor = `hsl(${hue}, 10%, 10%)`;
+        });
+
+        // Page Transitions
+        barba.init({
+            transitions: [{
+                name: 'opacity-transition',
+                leave(data) {
+                    return gsap.to(data.current.container, {
+                        opacity: 0,
+                        duration: 0.5
+                    });
+                },
+                enter(data) {
+                    return gsap.from(data.next.container, {
+                        opacity: 0,
+                        duration: 0.5
+                    });
+                }
+            }]
+        });
+    </script>
+
+    <!-- Additional Scripts for Specific Features -->
+    <script>
+        // Typed.js Initialization
+        new Typed('#typed-text', {
+            strings: [
+                'Odoo Developer',
+                'Data Analyst',
+                'UI/UX Enthusiast',
+                'Problem Solver'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 1500,
+            loop: true
+        });
+
+        // Initialize ScrollTrigger for each section
+        gsap.utils.toArray('section').forEach(section => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top center",
+                end: "bottom center",
+                onEnter: () => {
+                    section.classList.add('active');
+                },
+                onLeaveBack: () => {
+                    section.classList.remove('active');
+                }
+            });
+        });
+
+        // Custom Audio Feedback
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playHoverSound() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 440;
+            gainNode.gain.value = 0.1;
+            
+            oscillator.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        document.querySelectorAll('.magnetic-button').forEach(button => {
+            button.addEventListener('mouseenter', playHoverSound);
+        });
+    </script>
 </body>
 </html>
