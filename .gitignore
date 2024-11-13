@@ -1,0 +1,32 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor Folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dependencies
+node_modules/
+vendor/
+
+# Build Files
+dist/
+build/
+*.log
+
+# Environment Variables
+.env
+.env.local
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Personal TODO Files
+TODO.md
+NOTES.md

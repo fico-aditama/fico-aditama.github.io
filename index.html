@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiko Aditama - Developer & Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .skill-bar {
+            animation: progressBar 2s ease-in-out;
+            transform-origin: left;
+        }
+        @keyframes progressBar {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+        .project-card {
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        .typed-cursor {
+            color: #2E97A7;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-['Inter']">
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"></div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <img src="https://avatars.githubusercontent.com/u/your-username" alt="Profile" class="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-blue-500">
+            <h1 class="text-5xl font-bold mb-4">Fiko Aditama</h1>
+            <div class="text-2xl text-blue-400 mb-8">
+                <span id="typed"></span>
+            </div>
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="https://linkedin.com/in/fiko-aditama" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-linkedin text-3xl"></i>
+                </a>
+                <a href="https://instagram.com/fico_24" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-instagram text-3xl"></i>
+                </a>
+                <a href="https://github.com/fico-aditama" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-github text-3xl"></i>
+                </a>
+            </div>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+                <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+                <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes">
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">About Me</h2>
+            <div class="max-w-3xl mx-auto bg-gray-700 rounded-lg p-8">
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-rocket text-blue-400 mt-1 mr-3"></i>
+                        <span>Odoo Developer with a track record of boosting system efficiency by <b>40%</b></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-chart-line text-blue-400 mt-1 mr-3"></i>
+                        <span>Data Analyst specializing in Python, SQL, and advanced visualization techniques</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-seedling text-blue-400 mt-1 mr-3"></i>
+                        <span>Continuous learner, always exploring cutting-edge technologies</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-bullseye text-blue-400 mt-1 mr-3"></i>
+                        <span>Goal: Revolutionize business processes through innovative software solutions</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Featured Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Project 1 -->
+                <div class="project-card bg-gray-800 rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/600x300?text=Odoo+ERP+Suite" alt="Project 1" class="w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Odoo ERP Enhancement Suite</h3>
+                        <p class="text-gray-400 mb-4">A comprehensive set of custom modules that increased overall ERP efficiency by 40%.</p>
+                        <a href="#" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">View Project</a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card bg-gray-800 rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/600x300?text=Analytics+Dashboard" alt="Project 2" class="w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Advanced Data Analytics Dashboard</h3>
+                        <p class="text-gray-400 mb-4">Interactive dashboard providing real-time insights, built with Python and D3.js.</p>
+                        <a href="#" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">Explore Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Skills & Expertise</h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">Odoo Development</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full">
+                        <div class="h-full bg-blue-500 rounded-full skill-bar" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">Python & Data Analysis</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full">
+                        <div class="h-full bg-blue-500 rounded-full skill-bar" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Stats Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">GitHub Analytics</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=fico-aditama&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true"/>
+                <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=fico-aditama&layout=compact&langs_count=8&theme=tokyonight"/>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-12">Let's Connect</h2>
+            <div class="flex justify-center gap-8">
+                <a href="https://linkedin.com/in/fiko-aditama" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-linkedin text-4xl"></i>
+                </a>
+                <a href="https://instagram.com/fico_24" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-instagram text-4xl"></i>
+                </a>
+                <a href="https://github.com/fico-aditama" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-github text-4xl"></i>
+                </a>
+            </div>
+            <div class="mt-12">
+                <a href="https://www.buymeacoffee.com/ficoaditamz" class="inline-block">
+                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="Buy Me A Coffee">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 bg-gray-900 text-center text-gray-400">
+        <p>© 2024 Fiko Aditama. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Typed.js initialization
+        new Typed('#typed', {
+            strings: [
+                'Odoo Developer',
+                'Data Analyst',
+                'Innovating with Code'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 1500,
+            loop: true
+        });
+
+        // Animate skill bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'progressBar 2s ease-in-out forwards';
+                }
+            });
+        });
+
+        document.querySelectorAll('.skill-bar').forEach(bar => {
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html>
