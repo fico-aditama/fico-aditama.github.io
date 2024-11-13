@@ -3,187 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiko Aditama - Developer & Analyst</title>
+    <title>Fiko Aditama | Developer & Analyst</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2E97A7;
+            --secondary: #1E293B;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #2E97A7, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         .skill-bar {
             animation: progressBar 2s ease-in-out;
             transform-origin: left;
         }
-        @keyframes progressBar {
-            0% { transform: scaleX(0); }
-            100% { transform: scaleX(1); }
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .project-card {
-            transition: transform 0.3s ease;
+        .card-hover {
+            transition: all 0.3s ease;
         }
-        .project-card:hover {
+        .card-hover:hover {
             transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-        .typed-cursor {
-            color: #2E97A7;
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .skill-badge {
+            transition: all 0.3s ease;
+        }
+        .skill-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(46, 151, 167, 0.2);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-['Inter']">
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-glass">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold gradient-text">FA</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <button class="bg-primary px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">
+                    Resume
+                </button>
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <header class="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"></div>
-        <div class="container mx-auto px-4 z-10 text-center">
-            <img src="https://avatars.githubusercontent.com/u/your-username" alt="Profile" class="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-blue-500">
-            <h1 class="text-5xl font-bold mb-4">Fiko Aditama</h1>
-            <div class="text-2xl text-blue-400 mb-8">
-                <span id="typed"></span>
-            </div>
-            <div class="flex justify-center gap-6 mb-12">
-                <a href="https://linkedin.com/in/fiko-aditama" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fab fa-linkedin text-3xl"></i>
-                </a>
-                <a href="https://instagram.com/fico_24" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fab fa-instagram text-3xl"></i>
-                </a>
-                <a href="https://github.com/fico-aditama" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fab fa-github text-3xl"></i>
-                </a>
-            </div>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-                <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
-                <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes">
-            </div>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">About Me</h2>
-            <div class="max-w-3xl mx-auto bg-gray-700 rounded-lg p-8">
-                <ul class="space-y-4">
-                    <li class="flex items-start">
-                        <i class="fas fa-rocket text-blue-400 mt-1 mr-3"></i>
-                        <span>Odoo Developer with a track record of boosting system efficiency by <b>40%</b></span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-chart-line text-blue-400 mt-1 mr-3"></i>
-                        <span>Data Analyst specializing in Python, SQL, and advanced visualization techniques</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-seedling text-blue-400 mt-1 mr-3"></i>
-                        <span>Continuous learner, always exploring cutting-edge technologies</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-bullseye text-blue-400 mt-1 mr-3"></i>
-                        <span>Goal: Revolutionize business processes through innovative software solutions</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Project 1 -->
-                <div class="project-card bg-gray-800 rounded-lg overflow-hidden">
-                    <img src="https://via.placeholder.com/600x300?text=Odoo+ERP+Suite" alt="Project 1" class="w-full">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Odoo ERP Enhancement Suite</h3>
-                        <p class="text-gray-400 mb-4">A comprehensive set of custom modules that increased overall ERP efficiency by 40%.</p>
-                        <a href="#" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">View Project</a>
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div id="particles-js"></div>
+        <div class="container mx-auto px-6 z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4">
+                        Hi, I'm <span class="gradient-text">Fiko</span>
+                    </h1>
+                    <div class="text-2xl text-gray-300 mb-8">
+                        <span id="typed"></span>
+                    </div>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        Revolutionizing business processes through innovative software solutions
+                        and data-driven insights.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-primary px-8 py-3 rounded-full hover:bg-blue-600 transition-colors">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="border border-primary px-8 py-3 rounded-full hover:bg-primary/10 transition-colors">
+                            View Work
+                        </a>
                     </div>
                 </div>
-                <!-- Project 2 -->
-                <div class="project-card bg-gray-800 rounded-lg overflow-hidden">
-                    <img src="https://via.placeholder.com/600x300?text=Analytics+Dashboard" alt="Project 2" class="w-full">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Advanced Data Analytics Dashboard</h3>
-                        <p class="text-gray-400 mb-4">Interactive dashboard providing real-time insights, built with Python and D3.js.</p>
-                        <a href="#" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">Explore Dashboard</a>
-                    </div>
+                <div class="md:w-1/2 mt-12 md:mt-0" data-aos="fade-left">
+                    <img src="assets/images/profile.jpg" alt="Profile" 
+                         class="w-64 h-64 rounded-full mx-auto border-4 border-primary floating">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">Skills & Expertise</h2>
-            <div class="max-w-3xl mx-auto space-y-6">
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">Odoo Development</span>
-                        <span>95%</span>
+    <section id="skills" class="py-20 bg-gray-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+                Skills & Expertise
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Technical Skills -->
+                <div class="bg-glass rounded-xl p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-code text-3xl"></i>
                     </div>
-                    <div class="h-3 bg-gray-700 rounded-full">
-                        <div class="h-full bg-blue-500 rounded-full skill-bar" style="width: 95%"></div>
+                    <h3 class="text-xl font-semibold mb-4">Technical Skills</h3>
+                    <div class="space-y-4">
+                        <div class="skill-badge bg-gray-700/50 p-3 rounded-lg">
+                            <div class="flex justify-between mb-2">
+                                <span>Odoo Development</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-600 rounded-full">
+                                <div class="h-full bg-primary rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <!-- Add more skills following the same pattern -->
                     </div>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">Python & Data Analysis</span>
-                        <span>90%</span>
+
+                <!-- Data Analytics -->
+                <div class="bg-glass rounded-xl p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-chart-line text-3xl"></i>
                     </div>
-                    <div class="h-3 bg-gray-700 rounded-full">
-                        <div class="h-full bg-blue-500 rounded-full skill-bar" style="width: 90%"></div>
+                    <h3 class="text-xl font-semibold mb-4">Data Analytics</h3>
+                    <div class="space-y-4">
+                        <div class="skill-badge bg-gray-700/50 p-3 rounded-lg">
+                            <div class="flex justify-between mb-2">
+                                <span>Python Analysis</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-600 rounded-full">
+                                <div class="h-full bg-primary rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <!-- Add more analytics skills -->
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="bg-glass rounded-xl p-6 card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-users text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Soft Skills</h3>
+                    <div class="space-y-4">
+                        <div class="skill-badge bg-gray-700/50 p-3 rounded-lg flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-3"></i>
+                            <span>Team Leadership</span>
+                        </div>
+                        <!-- Add more soft skills -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GitHub Stats Section -->
-    <section class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">GitHub Analytics</h2>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
-                <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=fico-aditama&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true"/>
-                <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=fico-aditama&layout=compact&langs_count=8&theme=tokyonight"/>
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+                Featured Projects
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project Card -->
+                <div class="bg-glass rounded-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <img src="assets/images/projects/project1.jpg" alt="Project" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Odoo ERP Enhancement Suite</h3>
+                        <p class="text-gray-400 mb-4">
+                            Comprehensive custom modules that increased system efficiency by 40%.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm">Odoo</span>
+                        </div>
+                        <a href="#" class="text-primary hover:text-blue-400 transition-colors">
+                            Learn More →
+                        </a>
+                    </div>
+                </div>
+                <!-- Add more project cards -->
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-12">Let's Connect</h2>
-            <div class="flex justify-center gap-8">
-                <a href="https://linkedin.com/in/fiko-aditama" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fab fa-linkedin text-4xl"></i>
-                </a>
-                <a href="https://instagram.com/fico_24" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fab fa-instagram text-4xl"></i>
-                </a>
-                <a href="https://github.com/fico-aditama" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fab fa-github text-4xl"></i>
-                </a>
-            </div>
-            <div class="mt-12">
-                <a href="https://www.buymeacoffee.com/ficoaditamz" class="inline-block">
-                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="Buy Me A Coffee">
-                </a>
+    <section id="contact" class="py-20 bg-gray-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+                Get in Touch
+            </h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-glass rounded-xl p-6" data-aos="fade-right">
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary transition-colors"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="bg-glass rounded-xl p-6" data-aos="fade-left">
+                    <h3 class="text-xl font-semibold mb-6">Connect With Me</h3>
+                    <div class="space-y-4">
+                        <a href="#" class="flex items-center p-4 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors">
+                            <i class="fab fa-linkedin text-2xl text-primary mr-4"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="#" class="flex items-center p-4 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors">
+                            <i class="fab fa-github text-2xl text-primary mr-4"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="#" class="flex items-center p-4 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-envelope text-2xl text-primary mr-4"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-8 bg-gray-900 text-center text-gray-400">
-        <p>© 2024 Fiko Aditama. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-900/80">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">© 2024 Fiko Aditama. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
-        // Typed.js initialization
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize Typed.js
         new Typed('#typed', {
             strings: [
                 'Odoo Developer',
                 'Data Analyst',
-                'Innovating with Code'
+                'Problem Solver'
             ],
             typeSpeed: 50,
             backSpeed: 30,
@@ -191,18 +301,162 @@
             loop: true
         });
 
-        // Animate skill bars on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'progressBar 2s ease-in-out forwards';
-                }
-            });
-        });
+        // Initialize Particles.js
+        particlesJS('particles-js',
+{
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#2E97A7"
+    },
+    "shape": {
+      "type": "circle",
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#2E97A7",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": true
+});
 
-        document.querySelectorAll('.skill-bar').forEach(bar => {
-            observer.observe(bar);
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
         });
-    </script>
-</body>
-</html>
+    });
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+        nav.classList.add('bg-gray-900/90');
+        nav.classList.remove('bg-transparent');
+    } else {
+        nav.classList.remove('bg-gray-900/90');
+        nav.classList.add('bg-transparent');
+    }
+});
+
+// Dark mode toggle
+const darkModeToggle = document.getElementById('darkMode');
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    });
+}
+
+// Form submission with validation
+const contactForm = document.querySelector('#contact form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Basic validation
+        const name = contactForm.querySelector('input[type="text"]').value;
+        const email = contactForm.querySelector('input[type="email"]').value;
+        const message = contactForm.querySelector('textarea').value;
+        
+        if (!name || !email || !message) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        try {
+            // Replace with your form submission logic
+            console.log('Form submitted:', { name, email, message });
+            contactForm.reset();
+            alert('Message sent successfully!');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again.');
+        }
+    });
+}
